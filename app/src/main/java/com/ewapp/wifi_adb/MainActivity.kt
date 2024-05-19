@@ -28,7 +28,7 @@ class MainActivity : ComponentActivity() {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     // 渲染Greeting函数
                     Greeting(
-                        name = "Android",
+//                        name = "Android",
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
@@ -39,7 +39,7 @@ class MainActivity : ComponentActivity() {
 
 // 问候组件
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
+fun Greeting( modifier: Modifier = Modifier) {
     // 创建一个状态变量来存储TextField的值
     var text by remember { mutableStateOf("") }
 
@@ -56,7 +56,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
     ) {
         // 显示问候消息
         Text(
-            text = "Hello $name!",
+            text = "ADB Server's Host:",
             modifier = Modifier.padding(bottom = 24.dp)
         )
         // 创建可以输入文本的TextField
@@ -65,7 +65,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             onValueChange = { newText ->
                 text = newText
             },
-            label = { Text("Enter something...") },
+            label = { if(text.isEmpty()) Text("Enter host...") else Text("")},
             modifier = Modifier.padding(bottom = 24.dp)
         )
         // 创建一个按钮
@@ -77,13 +77,17 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             modifier = Modifier.padding(bottom = 16.dp)
         ) {
             // 按钮内部的文字
-            Text("Click Me")
+            Text("Save")
         }
-        // 创建一个Switch组件
-        Switch(
-            checked = switchState,
-            onCheckedChange = { switchState = it }
-        )
+        // 开关状态与启用/关闭标签
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            // 切换开关左侧显示是否启用的文本
+            Text(text = if (switchState) "Enable" else "Disable", modifier = Modifier.padding(end = 8.dp))
+            Switch(
+                checked = switchState,
+                onCheckedChange = { switchState = it }
+            )
+        }
     }
 }
 
@@ -92,6 +96,6 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 @Composable
 fun GreetingPreview() {
     WiFiADBTheme {
-        Greeting("Android")
+        Greeting()
     }
 }

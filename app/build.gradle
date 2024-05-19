@@ -47,7 +47,10 @@ android {
 }
 
 dependencies {
-    implementation "androidx.compose.ui:ui:1.0.0" // 确保这里是最新的版本
+    implementation libs.ui // 确保这里是最新的版本
+//    implementation libs.androidx.material.icons.extended // 示例版本，请使用适合项目的版本
+//    implementation libs.androidx.material3.icons.extended // 示例版本，请使用适合项目的版本
+
 
     implementation libs.androidx.core.ktx
     implementation libs.androidx.lifecycle.runtime.ktx
